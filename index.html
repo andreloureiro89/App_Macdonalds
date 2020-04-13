@@ -1,0 +1,354 @@
+    <!doctype html>
+    <html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Estilo CSS -->
+        <link rel="stylesheet" type="text/css" href="estilo.css">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/0122f273d9.js" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script src="sampleData.js"></script>
+        <script src="back.js"></script>
+
+
+        <title>MacDonalds</title>
+    </head>
+
+    <body>
+<!--NAVBAR---------------------------------------------------------------------------------------------->
+
+
+
+
+        <div class="container" id="section1">
+            <nav class="fixed-top navbar bg-warning navbar-inverse navbar-expand-lg m-auto w-40"><a href="#"><img src="imagens/logo_1.gif" style="width: 50px"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link text-dark font-weight-bold" href="#">Criar Pedido</a>
+                        </li>
+                        <li class="nav-item ml-auto">
+                            <a class="nav-link text-dark font-weight-bold" href="#section2">Remover Pedido</a>
+                        </li>
+                        <li class="nav-item ml-auto">
+                            <a class="nav-link text-dark font-weight-bold" href="#section3">Pedidos</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+<!--/NAVBAR----------------------------------------------------------------------------------------------->
+<div style="margin-bottom: 100px;"></div>
+<!--NOVO PEDIDO------------------------------------------------------------------------------------------->
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+        <p>Nome Cliente: </p>
+        <div class=" mb-3">
+              <input id="nomeCliente" onclick="back()" type="text" class="form-control" placeholder="Nome Cliente">
+              <p><small class="text-danger" id='nomePedido'></small></p>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+        <p>Artigo:</p>
+            <div class="input-group">
+              <select class="custom-select text-warning" style="background-color: #003300;" id="selector">
+                <option value="sanduiche">Sanduiche</option>
+                <option value="acompanhamento">Acompanhamento</option>
+                <option value="bebidas">Bedidas</option>
+              </select>
+              <select class="custom-select text-warning" style="background-color: #003300;" id="segundoSelector">
+              </select>
+            </div>
+            <div id="pedidoEspecial" class="mb-3 mt-3">
+                <p>Pedido Especial:</p>
+                <div class="input-group mt-3 mb-5">
+                      <select class="custom-select text-warning" style="background-color: #003300;" id="selectorExtra">
+              </select>
+            </div>
+            </div>
+    </div>
+    <div class="col mt-3">
+            <button type="button" onclick="enviarDados()" style="background-color: #003300; height: 155px;" class="btn btn-primary btn-lg btn-block border-0 text-warning">Adic.Produto</button>
+    </div>
+  </div>
+              <table id="myTable" class="table fill">
+              <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Artigo</th>
+                    <th scope="col">Extra</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+                    <button type="button" onclick="finalizarPedido()" class="mb-5 btn btn-lg text-warning border-0 btn-block" style="background-color: #003300;">Finalizar Pedido</button>
+</div>
+
+<!--/NOVO PEDIDO------------------------------------------------------------------------------------------>
+<!--DIVISÒRIA--------------------------------------------------------------------------------------------->
+
+<div class="bg-warning" style="height: 500px;"></div>
+
+<!--/DIVISÒRIA-------------------------------------------------------------------------------------------->
+<!--SERVIÇO COZINHA--------------------------------------------------------------------------------------->
+
+<div class="container mt-4 mb-3" id="section2">
+    <h1 class="mb-5">Serviço de cozinha</h1>
+    <div class="row">
+        <div class="col-sm">
+            <button onclick="getAll()" type="button" style="background-color: #003300; height: 155px;" class="btn btn-primary btn-lg btn-block border-0 text-warning">Todos<p id="todos"></p></button>
+
+        </div>
+    <div class="col-sm">
+            <button onclick="getFirstExtra()" type="button" style="background-color: #003300; height: 155px;" class="btn btn-primary btn-lg btn-block border-0 text-warning">Com Extra<p id="comExtra"></p></button>
+
+    </div>
+    <div class="col-sm">
+            <button onclick="semExtra()" type="button" style="background-color: #003300; height: 155px;" class="btn btn-lg btn-block border-0 text-warning">Sem Extra<p id="semExtra"></p></button>
+    </div>
+    </div>
+    <h4 class="mt-2">Id do pedido:<span id="idPedido"></span></h4>
+    <h3>Nome do Cliente: <span id="pedidoCliente" ></span> </h3>
+        <table id="myTable2" class="table">
+                  <thead>
+                    <tr>
+                        <th id="theadCozinha" scope="col"></th>
+                        <th id="theadCozinha2" scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+        </table>
+        <button onclick="pedidoFeito()" type="button" class="mb-5 btn btn-lg text-warning border-0 btn-block" style="background-color: #003300;">Pedido Feito</button>
+</div>
+
+<!--/SERVIÇO COZINHA-------------------------------------------------------------------------------------->
+<!--DIVISÒRIA--------------------------------------------------------------------------------------------->
+
+<div class="bg-warning" style="height: 100px;"></div>
+
+<!--/DIVISÒRIA-------------------------------------------------------------------------------------------->
+<!--TABELA PEDIDOS ACTIVOS-------------------------------------------------------------------------------->
+
+<div class="container mt-5" style="margin-bottom: 100px;" id="section3">
+    <h2>Tabela de pedidos activos</h2>
+            <div class="input-group mt-3 mb-5">
+              <select id="tabelaActivos" class="custom-select text-warning" style="background-color: #003300;">
+                <option value=" ">Ver pedidos :</option>
+                <option value="todos">Todos</option>
+                <option value="comExtra">Com Extra</option>
+                <option value="semExtra">Sem Extra</option>
+              </select>
+            </div>
+                    <table id="tabelaPedidos" class="table">
+                  <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome Cliente</th>
+                        <th scope="col">Pedido</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+        </table>
+    
+</div>
+<!--/TABELA PEDIDOS ACTIVOS------------------------------------------------------------------------------->
+<!--DIVISÒRIA--------------------------------------------------------------------------------------------->
+
+<div class="bg-white" style="height: 100px;"></div>
+
+<!--/DIVISÒRIA-------------------------------------------------------------------------------------------->
+
+
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+            <script>
+
+        $(document).ready( function () {
+
+            let escolha = 'Sanduiche';
+            let filtro = productExtraSanduichesList;
+            let extra = productNameSanduichesList;
+
+            for ( i = 0; i < filtro.length; i++) {
+                            
+                $('#selectorExtra').append(`<option value="${filtro[i]}">${filtro[i]}</option>`);
+
+                        }
+
+            for ( j = 0; j < extra.length; j++) {
+                            
+                $('#segundoSelector').append(`<option value="${extra[j]}">${extra[j]}</option>`)
+                        }
+
+            $("#selector").change(function(){
+
+                escolha = $( "#selector option:selected" ).text();
+                
+
+                    if (escolha == 'Acompanhamento') {
+
+                        $('#pedidoEspecial').removeClass('mb-3 mt-3').addClass('invisible');
+                        $('#segundoSelector').find('option').remove().end();
+                        $('#selectorExtra').find('option').remove().end();
+
+
+                        filtro = productNameAcompanhamentosList;
+
+                        for ( i = 0; i < filtro.length; i++) {
+                            
+                            $('#segundoSelector').append(`<option value="${filtro[i]}">${filtro[i]}</option>`)
+                        }
+                        
+                    } else if( escolha == 'Sanduiche'){
+
+                        $('#pedidoEspecial').removeClass('invisible').addClass('mb-3 mt-3');
+                        $('#segundoSelector').find('option').remove().end();
+                        $('#selectorExtra').find('option').remove().end();
+
+                        extra = productExtraSanduichesList;
+                       filtro =  productNameSanduichesList
+
+                        for ( i = 0; i < filtro.length; i++) {
+                            
+                            $('#segundoSelector').append(`<option value="${filtro[i]}">${filtro[i]}</option>`)
+                        }
+
+                        for ( j = 0; j < extra.length; j++) {
+                            
+                            $('#selectorExtra').append(`<option value="${extra[j]}">${extra[j]}</option>`)
+                        }
+
+                    } else if( escolha == 'Bedidas'){
+
+                        $('#pedidoEspecial').removeClass('invisible').addClass('mb-3 mt-3');
+
+
+                        $('#segundoSelector').find('option').remove().end();
+                        $('#selectorExtra').find('option').remove().end();
+
+                       filtro = productNameBebidasList;
+                       extra = productExtraBebidasList;
+
+                        for ( i = 0; i < filtro.length; i++) {
+                            
+                            $('#segundoSelector').append(`<option value="${filtro[i]}">${filtro[i]}</option>`)
+                        }
+
+                        for ( j = 0; j < extra.length; j++) {
+
+                            $('#selectorExtra').append(`<option value="${extra[j]}">${extra[j]}</option>`)
+                        }
+                        
+                    }
+
+                });
+
+
+
+            $("#tabelaActivos").change( function(){
+
+                let result = [];
+                let escolhaTabela = $( "#tabelaActivos option:selected" ).text();
+
+            if (escolhaTabela == 'todos') {
+
+                    $('#myTableRow').remove()
+
+                for (var i = 0; i < lista.length; i++) {
+                    result = [];
+
+                   for (var j = 0; j < lista[i].products.length; j++) {
+                       result.push(lista[i].products[j].artigo + lista[i].products[j].extra)
+                       result.join(" ");
+                   }
+
+                   $('#tabelaPedidos tbody:last-child').append(`
+                    <tr id="myTableRow"><th>${lista[i].id}</th><td>${lista[i].cliente}</td><td>${result}</td></tr>`)
+
+                }
+
+
+            } else if( escolhaTabela == 'comExtra' ){
+
+                $('#myTableRow').remove();
+
+                for (var i = 0; i < listaExtra.length; i++) {
+                    result = [];
+
+                   for (var j = 0; j < listaExtra[i].products.length; j++) {
+                       result.push(listaExtra[i].products[j].artigo + listaExtra[i].products[j].extra)
+                       result.join(" ");
+                   }
+
+                   $('#tabelaPedidos tbody:last-child').append(`
+                    <tr id="myTableRow"><th>${listaExtra[i].id}</th><td>${listaExtra[i].cliente}</td><td>${result}</td></tr>`)
+
+                }
+
+
+            } else if( escolhaTabela == 'semExtra'){
+
+                $('#myTableRow').remove();
+
+                for (var i = 0; i < listNoExtra.length; i++) {
+                    result = [];
+
+                  for (var j = 0; j < listNoExtra[i].products.length; j++) {
+                       result.push(listNoExtra[i].products[j].artigo + '<br>')
+                       result.join(" ");
+                   }
+
+                   $('#tabelaPedidos tbody:last-child').append(`
+                    <tr id="myTableRow" ><th>${listNoExtra[i].id}</th><td>${listNoExtra[i].cliente}</td><td>${result}</td></tr>`)
+                }
+
+            }
+
+            })
+
+
+        });
+
+
+
+
+
+
+                
+            </script>
+    </body>
+
+    </html>
